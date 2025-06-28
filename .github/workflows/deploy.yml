@@ -32,7 +32,7 @@ jobs:
 
       - name: Deploy on VM
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.VM_USERNAME }}@${{ secrets.VM_IP }} << EOF
+          ssh -o StrictHostKeyChecking=no ${{ secrets.VM_USERNAME }}@${{ secrets.VM_IP }} <<EOF
             cd /${{ secrets.VM_USERNAME }}/apps
             docker-compose down --remove-orphans || true
             docker-compose up --build -d
