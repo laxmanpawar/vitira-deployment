@@ -28,7 +28,7 @@ jobs:
 
       - name: Copy files to VM
         run: |
-          rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no" ./ ${{ secrets.VM_USERNAME }}@${{ secrets.VM_IP }}:/home/${{ secrets.VM_USERNAME }}/apps
+          rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no" ./ ${{ secrets.VM_USERNAME }}@${{ secrets.VM_IP }}:/${{ secrets.VM_USERNAME }}/apps
 
       - name: Deploy on VM
         run: |
