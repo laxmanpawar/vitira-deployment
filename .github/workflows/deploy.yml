@@ -2,7 +2,7 @@ name: Deploy to VM
 
 on:
   push:
-    branches: [main]
+    branches: [test]
 
 jobs:
   deploy:
@@ -32,8 +32,8 @@ jobs:
 
       - name: Deploy on VM
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.VM_USERNAME }}@${{ secrets.VM_IP }} << 'EOF'
-            cd /${{ secrets.VM_USERNAME }}/apps
-            docker-compose down || true
-            docker-compose up --build -d
+          ssh -o StrictHostKeyChecking=no ${{ secrets.VM_USERNAME }}@${{ secrets.VM_IP }} << EOF
+          cd /${{ secrets.VM_USERNAME }}/apps
+          docker-compose down || true
+          docker-compose up --build -d
           EOF 
