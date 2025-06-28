@@ -32,11 +32,15 @@ services:
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
       KEYCLOAK_IMPORT: ${KEYCLOAK_IMPORT_PATH}
       KC_HOSTNAME_STRICT: "false"   # (optional, disables strict mode for dev/test)
+      KC_HTTPS_CERTIFICATE_FILE: /etc/x509/https/tls.crt
+      KC_HTTPS_CERTIFICATE_KEY_FILE: /etc/x509/https/tls.key
     command: start --import-realm --optimized
     ports:
-      - "8081:8080"
+      - "8081:8443"
     volumes:
       - ./keycloak/realm/vitira-realm.json:${KEYCLOAK_IMPORT_PATH}:ro
+      - ${KEYCLOAK_CERT_FILE}:/etc/x509/https/tls.crt:ro
+      - ${KEYCLOAK_CERT_KEY_FILE}:/etc/x509/https/tls.key:ro
 
   # nginx:
   #   image: nginx:alpine
