@@ -22,8 +22,8 @@ jobs:
       - name: Create deployment folder
         run: |
           ssh ${{ secrets.VM_USERNAME }}@${{ secrets.VM_IP }} <<EOF
-          mkdir -p apps
-          ls -la
+            mkdir -p apps
+            ls -la
           EOF
 
       - name: Copy files to VM
@@ -33,7 +33,7 @@ jobs:
       - name: Deploy on VM
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.VM_USERNAME }}@${{ secrets.VM_IP }} << EOF
-          cd /${{ secrets.VM_USERNAME }}/apps
-          docker-compose down --remove-orphans || true
-          docker-compose up --build -d
+            cd /${{ secrets.VM_USERNAME }}/apps
+            docker-compose down --remove-orphans || true
+            docker-compose up --build -d
           EOF 
