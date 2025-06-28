@@ -16,6 +16,13 @@ jobs:
         uses: webfactory/ssh-agent@v0.8.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      
+      - name: Create deployment folder
+        run: |
+          ssh ${{ secrets.VM_USERNAME }}@${{ secrets.VM_IP }} <<EOF
+          mkdir -p apps
+          ls -la
+          EOF
 
       - name: Copy files to VM
         run: |
