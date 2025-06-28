@@ -33,7 +33,7 @@ jobs:
       - name: Deploy on VM
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.VM_USERNAME }}@${{ secrets.VM_IP }} << 'EOF'
-            cd /home/${{ secrets.VM_USERNAME }}/apps
+            cd /${{ secrets.VM_USERNAME }}/apps
             docker-compose down || true
             docker-compose up --build -d
           EOF 
