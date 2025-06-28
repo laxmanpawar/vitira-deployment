@@ -2,7 +2,7 @@
 FROM gradle:8.5.0-jdk17 AS build
 WORKDIR /app
 COPY . .
-RUN gradle clean build -x test
+RUN gradle bootJar --no-daemon
 
 FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
