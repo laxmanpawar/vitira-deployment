@@ -32,7 +32,7 @@ services:
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
       KEYCLOAK_IMPORT: ${KEYCLOAK_IMPORT_PATH}
       KC_HOSTNAME_STRICT: "false"   # (optional, disables strict mode for dev/test)
-    command: start --import-realm --optimised
+    command: start --import-realm --optimized
     ports:
       - "8081:8080"
     volumes:
