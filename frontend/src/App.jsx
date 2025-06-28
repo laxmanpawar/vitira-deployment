@@ -1,24 +1,34 @@
-import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
+import { ReactKeycloakProvider, useKeycloak } from '@react-keycloak/web';
+import Keycloak from 'keycloak-js';
+import keycloakConfig from './keycloak';
+import './App.css';
 
-function App() {
-  const [message, setMessage] = useState('')
+const keycloak = new Keycloak(keycloakConfig);
 
-  useEffect(() => {
-    fetch('/api/hello')
-      .then((res) => res.text())
-      .then(setMessage)
-      .catch(() => setMessage('Error fetching backend'))
-  }, [])
+function AuthApp() {
+  const { keycloak } = useKeycloak();
+
+  if (!keycloak.authenticated) {
+    return <button onClick={() => keycloak.login()}>Login</button>;
+  }
 
   return (
-    <div className="App">
-      <h1>React + Vite Frontend</h1>
-      <p>Backend says: <b>{message}</b></p>
+    <div>
+      <p>Welcome, {keycloak.tokenParsed?.preferred_username || 'User'}!</p>
+      <button onClick={() => keycloak.logout()}>Logout</button>
+      <pre>{JSON.stringify(keycloak.tokenParsed, null, 2)}</pre>
     </div>
-  )
+  );
 }
 
-export default App
+function App() {
+  return (
+    <ReactKeycloakProvider authClient={keycloak}>
+      <h1>React + Vite Frontend</h1>
+      <AuthApp />
+    </ReactKeycloakProvider>
+  );
+}
+
+export default App;
